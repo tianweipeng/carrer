@@ -81,4 +81,4 @@ class Login(Resource):
 
 
 # 设置路由
-api.add_resource(Check, '/rejister_check/<school_name>', endpoint='chenck')
+api.add_resource(Check, '/check/<school_name>', endpoint='check')
