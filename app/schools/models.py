@@ -1,4 +1,5 @@
-from . import db
+from app import db
+from sqlalchemy import create_engine
 
 class Job(db.Model):
     __tablename__ = 'job'
@@ -94,3 +95,23 @@ class Company(db.Model):
     is_registed = db.Column(db.Boolean, default=0)
     # 注册是否通过审核
     is_passed = db.Column(db.Boolean, default=0)
+
+class Tcom(db.Model):
+    __tablename__ = "tc"
+    # 企业id
+    id = db.Column(db.Integer, primary_key=True)
+    # 企业名称
+    name = db.Column(db.String(64), unique=True)
+    # 企业地点(省)
+    company_place_province = db.Column(db.Integer)
+
+class Tuser(db.Model):
+    __tablename__ = "tu"
+    # 企业id
+    id = db.Column(db.Integer, primary_key=True)
+    # 企业名称
+    staff = db.Column(db.String(64), unique=True)
+    #性别
+    sex = db.Column(db.Integer)
+    # 企业id
+    com_id = db.Column(db.Integer)

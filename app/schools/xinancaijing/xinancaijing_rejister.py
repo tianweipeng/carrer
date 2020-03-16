@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import requests
+from app.schools.models import Tcom, Tuser
 
 # 注册
 def rejister(account, password):
@@ -22,10 +23,10 @@ def rejister(account, password):
         "x-requested-with": "XMLHttpRequest"
     }
 
-    with open("C:\\Users\\dell\\Desktop\\pkq.jpg", 'rb') as f:
-        file = {"excel_file": f}
-        response = requests.post(url=url, files=file, headers=header)
-        filename = response.json()['url']
+    #with open("C:\\Users\\dell\\Desktop\\pkq.jpg", 'rb') as f:
+        #file = {"excel_file": f}
+        #response = requests.post(url=url, files=file, headers=header)
+        #filename = response.json()['url']
         #print(response.json()['url'])
 
     url = "https://jobzpgl.swufe.edu.cn/Job/Login/register"
@@ -60,13 +61,19 @@ def rejister(account, password):
         "contact_tel": "15810172901",  # 单位联系人手机
         "email": "11 @ 11.com",  # 单位邮箱
         "capital": 1700000,  # 注册资本（万元）
-        "excel_file": filename,  # 上传成功返回的图片名
+        "excel_file": 'filename',  # 上传成功返回的图片名
         "gszch_pic": "",
         "describe": "<p>什么东西</p>",  # 单位简介
         "check": 1  # 我已仔细阅读并同意
     }
 
-    response = requests.post(url, headers=headers, data=formdata)
+    #response = requests.post(url, headers=headers, data=formdata)
+    user = Tuser.query.join(Tcom, Tuser.com_id == Tcom.id).filter(Tuser.staff == 'tw').first()
+    print(user.id ,user.sex)
 
 if __name__ == '__main__':
+    from app import create_app
+    app = create_app('default')
+    app_context = app.app_context()
+    app_context.push()
     rejister('2', 'szyc2018')
