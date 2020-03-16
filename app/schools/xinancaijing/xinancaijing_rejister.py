@@ -52,7 +52,7 @@ def rejister(account, password):
     defined = {1: "中国500强", 2: "世界500强", 3: "上市", 4: "其他"}
 
     formdata = {
-        "name": account,  # 企业名字（登录名）
+        "name": company.name,  # 企业名字（登录名）
         "password": password,  # 密码
         "password2": password,  # 确认密码
         "region_level1": company.company_place_province,  # 单位所在地，省
@@ -60,7 +60,7 @@ def rejister(account, password):
         "region_level3": company.company_place_county,  # 单位所在地，区县
         "accept": 2,  # 是否可以接受（或托管）档案
         "accept_hk": 2,  # 是否可以接受（或托管）户口
-        "class": company.company_classify,  # 单位性质
+        "class": company.company_property,  # 单位性质（机关，科研，高等教育，部队，国有，三资，等等）
         "vocation": company.company_industry_one,  # 单位行业
         "defined": [{"id": company.company_classify, "name": defined[company.company_classify]}],  # 单位分类(1,中国500强，2世界500强，3上市，4其他)
         "tyshxydm": company.credit_num,  # 单位18位统一社会信用代码

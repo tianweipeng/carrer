@@ -84,15 +84,15 @@ class Company(db.Model):
     company_detail_address = db.Column(db.String(255))
     # 企业是否接受档案（1为接受，0为不接受）
     accept_archives = db.Column(db.Integer, default=None)
-    # 经济类型
+    # 经济类型 （国有，私有，三资台办，三资外企，参考西交注册页面）
     economic_property = db.Column(db.Integer)
-    # 企业性质
+    # 企业性质（机关，科研，高等教育，部队，国有，三资，等等）
     company_property = db.Column(db.Integer)
-    # 企业所处行业一级菜单
+    # 企业所处行业一级菜单（农林牧渔业，采矿，制造，建筑，等等）
     company_industry_one = db.Column(db.Integer)
-    # 企业所处行业二级菜单
+    # 企业所处行业二级菜单（以及行业下的子行业）
     company_industry_two = db.Column(db.Integer)
-    # 企业分类
+    # 企业分类（世界500强， 中国500强，上市，等等）
     company_classify = db.Column(db.Integer)
     # 企业隶属部门
     subjection_department = db.Column(db.Integer, default=None)

@@ -2,11 +2,8 @@
 
 import requests
 
-
-
 # 检查企业是否存在
-
-def check_if_rejisterd(account):
+def check(account):
     url = "https://jobzpgl.swufe.edu.cn/Job/Login/register"
 
     headers = {
@@ -38,4 +35,4 @@ def check_if_rejisterd(account):
 
 if __name__ == '__main__':
     # check_if_rejisterd('神州优车股份有限公司', 'szyc2018')
-    check_if_rejisterd('神州优车股份有限公司')
+    check('神州优车股份有限公司')
