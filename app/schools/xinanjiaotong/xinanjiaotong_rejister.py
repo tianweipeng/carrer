@@ -3,6 +3,7 @@ from lxml import html
 import time
 from PIL import Image
 from app.schools.models import Company
+from .import xinanjiaotong_check
 
 # 注册
 def rejister(account, password):
@@ -13,7 +14,7 @@ def rejister(account, password):
         "Referer": "http://jiuye.swjtu.edu.cn/eweb/jygl/index.so",
         "Host": "jiuye.swjtu.edu.cn"
     }
-    response_cookie = requests.post(url_cookie)
+    response_cookie = requests.post(url_cookie, headers = header_cookie)
     cookies = response_cookie.cookies.get_dict()
     # print(cookies)
 
@@ -30,9 +31,9 @@ def rejister(account, password):
     }
 
     param = {"type": "dwzc"}
-    response = requests.get(url_re, headers=header_re, params=param, cookies=cookies)
+    response_re = requests.get(url_re, headers=header_re, params=param, cookies=cookies)
     etree = html.etree
-    content = etree.HTML(response.text)
+    content = etree.HTML(response_re.text)
     refid = content.xpath("/html/body/div[4]/div/div/form/input[2]/@value")[0]
     print(refid)
 
@@ -73,10 +74,10 @@ def rejister(account, password):
         "Host": "jiuye.swjtu.edu.cn",
         "Referer": "http://jiuye.swjtu.edu.cn/eweb/jygl/jyglext.so?type=dwzc"
     }
-    response3 = requests.get(url_code, header=header_code, cookies=cookies)
+    response_code = requests.get(url_code, header=header_code, cookies=cookies)
     # 将验证码保存到本地
     with open("C:\\Users\\dell\\Desktop\\test.jpg", 'wb') as f:
-        f.write(response3.content)
+        f.write(response_code.content)
         f.close()
     time.sleep(3)
     im = Image.open('C:\\Users\\dell\\Desktop\\test.jpg')
@@ -121,6 +122,18 @@ def rejister(account, password):
         "dazjlb": "03",  # 档案转寄类别（03为不解决）
         "vpwd": code  # 验证码
     }
+
+    email_pass = xinanjiaotong_check.check(account)
+    if email_pass['code'] == 1:
+        response = requests.post(url=url, headers=header, data=formdata, cookies=cookies)
+        # print(response.json())
+        if response.json()['state'] == 200:
+            return {'code': 0, 'msg': response.json()['msg']}
+        else:
+            return {'code': 5, 'msg': '网络异常'}
+    else:
+        return email_pass
+
 
 if __name__ == '__main__':
     rejister("北京网聘","aabbcc123")

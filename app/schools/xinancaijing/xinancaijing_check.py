@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import requests
+from app.schools.models import Company
 
 # 检查企业是否存在
 def check(account):
@@ -16,21 +17,22 @@ def check(account):
         "x-requested-with": "XMLHttpRequest"
     }
 
+    # 获取企业信息
+    company = Company.query.filter(Company.name == account).first()
     formdata = {
         "name": account,  # 登录名
         "accept": "2",
         "accept_hk": "2",
+        "tyshxydm": company.credit_num,
         "check": "1"
     }
 
     response = requests.post(url, headers=headers, data=formdata)
     # print(response.json())
-    if response.json()['state'] == 200 and response.json()['msg'] == '该单位已注册，可直接用单位名登录':
-        return {'code': 0, 'msg': 'already rejisterd'}
-    elif response.json()['state'] == 200 and response.json()['msg'] != '该单位已注册，可直接用单位名登录':
-        return {'code': 1, 'msg': 'can rejister'}
+    if response.json()['state'] == 200:
+        return {'code': 0, 'msg': response.json()['msg']}
     else:
-        return {'code': 2, 'msg': 'error network'}
+        return {'code': 5, 'msg': '网络异常'}
 
 
 if __name__ == '__main__':
