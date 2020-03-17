@@ -3,7 +3,7 @@ from lxml import html
 import time
 from PIL import Image
 from app.schools.models import Company
-from .import xinanjiaotong_check
+import xinanjiaotong_check
 
 # 注册
 def rejister(account, password):
@@ -126,9 +126,12 @@ def rejister(account, password):
     email_pass = xinanjiaotong_check.check(account)
     if email_pass['code'] == 1:
         response = requests.post(url=url, headers=header, data=formdata, cookies=cookies)
-        # print(response.json())
-        if response.json()['state'] == 200:
-            return {'code': 0, 'msg': response.json()['msg']}
+        etree = html.etree
+        response_content = etree.HTML(response.text)
+        result = response_content.xpath("/html/body/div[4]/div/div/span[2]")
+        # print(response.text)
+        if result == "单位注册成功,请等待管理员的审核,你也可以登录系统查看审核信息！":
+            return {'code': 0, 'msg': result}
         else:
             return {'code': 5, 'msg': '网络异常'}
     else:
