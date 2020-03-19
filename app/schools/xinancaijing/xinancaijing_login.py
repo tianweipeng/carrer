@@ -9,7 +9,7 @@ from app.schools.xinancaijing import xinancaijing_js_analyse
 def login(account, password):
     # 获取cookie
     url = "https://jobzpgl.swufe.edu.cn/job/login/index.html"
-    response = requests.post(url)
+    response = requests.get(url)
     cookies = response.cookies.get_dict()
     print(cookies)
 
@@ -50,9 +50,9 @@ def login(account, password):
     if response.json()['state'] == 0 and response.json()['msg'] == '登陆账号或密码错误':
         return {'code': 0, 'msg': 'error account or password'}
     elif response.json()['state'] == 1:
-        return {'code': 1, 'msg': 'success'}
+        return {'code': 1, 'msg': 'success', 'cookies': cookies}
     else:
-        return {'code': 2, 'msg': 'error network'}
+        return {'code': 5, 'msg': 'error network'}
 
 
 if __name__ == '__main__':
