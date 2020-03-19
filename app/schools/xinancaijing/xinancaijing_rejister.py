@@ -77,7 +77,11 @@ def rejister(account, password):
     }
 
     print(formdata)
-    # response = requests.post(url, headers=headers, data=formdata)
+    response = requests.post(url, headers=headers, data=formdata)
+    if response.json()['state'] == 200:
+        return {'code': 0, 'msg': response.json()['msg']}
+    else:
+        return {'code': 5, 'msg': '网络异常'}
 
 
 if __name__ == '__main__':

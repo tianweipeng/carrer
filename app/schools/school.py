@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from flask import jsonify
 from flask_restful import reqparse, Resource, Api
 from app.schools import school_spider

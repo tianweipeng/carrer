@@ -3,44 +3,6 @@ import requests
 
 
 # 登陆方法
-def check(account):
-    account = str(account.encode('UTF-8')).lstrip('b').strip('\'').replace('\\x', '%')
-    formdata = {
-        "callCount": 1,
-        "page": "/eweb/jygl/jyglext.so?type=dwzc",
-        "scriptSessionId": "AECD160B6E77FE9907FA2AB2D3656A01265",
-        "c0-scriptName": "jygldwr",
-        "c0-methodName": "isValidateDwxx",
-        "c0-id": 0,
-        "c0-param0": "string:LHht928rkz2go78QQwm7y8",
-        "c0-param1": 'string:'+account,
-        "c0-param2": "string:",
-        "c0-param3": "string:",
-        "c0-param4": "string:xzDwxx",
-        "c0-param5": "boolean:false",
-        "batchId": 24
-    }
-
-
-    headers = {
-        "accept": "*/*",
-        "origin": "http://jiuye.swjtu.edu.cn",
-        "referer": "http://jiuye.swjtu.edu.cn/eweb/jygl/jyglext.so?type=dwzc",
-        "user-agent": "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.36"
-    }
-
-    url = "http://jiuye.swjtu.edu.cn/eweb/dwr/call/plaincall/jygldwr.isValidateDwxx.dwr"
-
-    response = requests.post(url, data=formdata, headers=headers)
-    response = response.text.split(':')[2].split(',')[0].strip('"')
-
-    if response == 'dwusertrue':
-        return {'code': 0, 'msg': 'already rejistered'}
-    elif response == 'true':
-        return {'code': 1, 'msg': 'not rejister'}
-    else:
-        return {'code': 2, 'msg': 'error network'}
-
 
 def dianke_rejister():
     url = "http://jiuye.uestc.edu.cn/sys/fore.php"

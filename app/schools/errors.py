@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from flask import request, jsonify, render_template
 from app.errors import BaseError
 from . import school_spider

@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from app import db
 
 class Job(db.Model, db.Session):
