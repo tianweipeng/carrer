@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import requests
+import os
 from lxml import html
 import time
 from PIL import Image
@@ -43,6 +44,7 @@ def rejister(account, password):
     company = Company.query.filter(Company.name == account).first()
 
     # 上传
+    '''
     url_up = "http://jiuye.swjtu.edu.cn/eweb/servlet/resuploadnew"
     header_up = {
         "User-Agent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:72.0) Gecko/20100101 Firefox/72.0",
@@ -52,15 +54,24 @@ def rejister(account, password):
         "Origin": "http://jiuye.swjtu.edu.cn",
         "Referer": "http://jiuye.swjtu.edu.cn/eweb/jygl/jyglext.so?type=dwzc"
     }
+    filepath = company.business_license
+    filepath, tmpfilename = os.path.split(filepath)
+    shotname, extension = os.path.splitext(tmpfilename)
+    full_file_name = shotname + extension
+    filetype ={
+        '.jegp': 'image/jpeg',
+        '.jpg': 'image/jpeg',
+        '.png': 'image/png'
+    }
     # 打开文件
-    # with open('C:\\Users\\dell\\Desktop\\pkq2.jpg', 'rb') as f:
-    # with open(company.business_license, 'rb') as f:
-        # pass
+    with open(filepath, 'rb') as f:
+        pass
 
-    # files = {'refid':(None, refid),'reftype':(None,'zzjgdmzsmj'),'mdbFiles':('2019.png',f,'image/jpg')}
-    # 上传
-    # requests.post(url_up, headers=header_up, files=files, cookies=cookies)
-
+    files = {'refid':(None, refid),'reftype':(None,'zzjgdmzsmj'),'mdbFiles':(full_file_name, f, filetype[extension])}
+    #上传
+    response_up = requests.post(url_up, headers=header_up, files=files, cookies=cookies)
+    print(response_up.json())
+    '''
 
     # 验证上传的二进制文件
     # print(requests.Request('POST', url_up, headers=header_up, files=files, cookies=cookies).prepare().body.decode('ascii'))

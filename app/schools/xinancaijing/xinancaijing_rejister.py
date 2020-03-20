@@ -28,13 +28,15 @@ def rejister(account, password):
         "x-requested-with": "XMLHttpRequest"
     }
     # 打开需上传的文件
-    # with open(company.business_license, 'rb') as f:
-    # with open("C:\\Users\\twp\\Desktop\\AAAA.jpg", 'rb') as f:
-        # file = {"excel_file": f}
-        # response = requests.post(url=upload_url, files=file, headers=header)
-        # filename = response.json()['url']
-        # print(response.json()['url'])
-
+    '''
+    filepath = company.business_license
+    with open(filepath, 'rb') as f:
+        pass
+    file = {"excel_file": f}
+    response = requests.post(url=upload_url, files=file, headers=header)
+    filename = response.json()['url']
+    print(filename)
+    '''
 
     # 注册
     url = "https://jobzpgl.swufe.edu.cn/Job/Login/register"

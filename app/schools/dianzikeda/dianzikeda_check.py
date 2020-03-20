@@ -27,7 +27,7 @@ def check(account):
     data = {
         "check": 2,
         "enter_name": account,
-        "emp_username": ''
+        "emp_username": account
     }
 
     response = requests.post(url, headers=header, params=param, data=data)
