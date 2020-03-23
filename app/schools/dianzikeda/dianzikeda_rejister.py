@@ -207,24 +207,13 @@ def rejister(account, password):
         "type": 2
     }
 
-    response_fir = requests.post(url, headers=headers_fir, param=param_fir, data=data_fir, cookies=cookies)
-    response_fir = json.loads(response_fir.text.split('(', 1)[1].rstrip(')'))
-    if response_fir['s'] == 0:
+    response_thi = requests.post(url, headers=headers_thi, param=param_sec, data=data_thi, cookies=cookies)
+    response_thi = json.loads(response_thi.text.split('(', 1)[1].rstrip(')'))
+    if response_thi['s'] == 0:
         print('ok')
-
     else:
         return {'code': 5, 'msg': '网络异常'}
 
-    #
-    # response = requests.post(url, data=data, headers=headers)
-    # response = response.text.split(':')[2].split(',')[0].strip('"')
-    #
-    # if response == 'dwusertrue':
-    #     return {'code': 0, 'msg': 'already rejistered'}
-    # elif response == 'true':
-    #     return {'code': 1, 'msg': 'not rejister'}
-    # else:
-    #     return {'code': 2, 'msg': 'error network'}
 
 if __name__ == '__main__':
-    rejister('航天信息股份有限公司')
+    rejister('航天信息股份有限公司','Abc123456')
