@@ -29,11 +29,10 @@ def rejister(account, password):
     }
     # 打开需上传的文件
     '''
-    filepath = company.business_license
-    with open(filepath, 'rb') as f:
-        pass
-    file = {"excel_file": f}
-    response = requests.post(url=upload_url, files=file, headers=header)
+    filename = company.business_license
+    with open(filename, 'rb') as f:
+        file = {"excel_file": f}
+        response = requests.post(url=upload_url, files=file, headers=header)
     filename = response.json()['url']
     print(filename)
     '''

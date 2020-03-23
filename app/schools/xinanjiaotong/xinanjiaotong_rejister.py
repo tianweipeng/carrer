@@ -54,22 +54,18 @@ def rejister(account, password):
         "Origin": "http://jiuye.swjtu.edu.cn",
         "Referer": "http://jiuye.swjtu.edu.cn/eweb/jygl/jyglext.so?type=dwzc"
     }
-    filepath = company.business_license
-    filepath, tmpfilename = os.path.split(filepath)
-    shotname, extension = os.path.splitext(tmpfilename)
-    full_file_name = shotname + extension
-    filetype ={
+    file = company.business_license
+    filename = os.path.split(file)[1]
+    extension = os.path.splitext(filename)[1]
+    filetype = {
         '.jegp': 'image/jpeg',
         '.jpg': 'image/jpeg',
         '.png': 'image/png'
     }
     # 打开文件
-    with open(filepath, 'rb') as f:
-        pass
-
-    files = {'refid':(None, refid),'reftype':(None,'zzjgdmzsmj'),'mdbFiles':(full_file_name, f, filetype[extension])}
-    #上传
-    response_up = requests.post(url_up, headers=header_up, files=files, cookies=cookies)
+    with open(file, 'rb') as f:
+        files = {'refid':(None, refid),'reftype':(None,'zzjgdmzsmj'),'mdbFiles':(filename, f, filetype[extension])}
+        response_up = requests.post(url_up, headers=header_up, files=files, cookies=cookies)
     print(response_up.json())
     '''
 
