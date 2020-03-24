@@ -3,8 +3,10 @@
 from flask import Flask
 from config import config
 from flask_sqlalchemy import SQLAlchemy
+from flask_apscheduler import APScheduler
 
 db = SQLAlchemy()
+scheduler = APScheduler()
 
 # 创建函数工厂
 def create_app(config_name):
@@ -13,6 +15,7 @@ def create_app(config_name):
     app.config.from_object(config[config_name])
     config[config_name].init_app(app)
     db.init_app(app)
+    scheduler.init_app(app)
 
     # 添加用户路由
     from .schools import school_spider as user_blueprint
