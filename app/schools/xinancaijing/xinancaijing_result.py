@@ -6,7 +6,7 @@ import  xinancaijing_login
 from lxml import html
 import xinancaijing_login
 
-from app.schools.models import Company
+from app.schools.models import Company, Company_School, School
 
 
 '''
@@ -20,6 +20,9 @@ password_all = Password.query.join(Com, Password.com_id == Com.id).filter(Com.id
 for password_one in password_all:
     username, password = password_one.username, password_one.password
 '''
+# 查找学校id
+school_id = School.query.filter(School.school_name == "xinancaijingdaxue").first()
+password_all = Company_School.query.filter(Company_School.rejister_status == "3")
 
 def rejister_reslut():
     url = "https://jobzpgl.swufe.edu.cn/Job/index/index.html"

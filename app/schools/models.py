@@ -136,3 +136,43 @@ class Company(db.Model):
     # 返回可读字符串，便于调试和测试
     def __repr__(self):
         return '<Company %r>' % self.name
+
+class School(db.Model):
+    # 表名
+    __tablename__ = "school"
+    id = db.Column(db.Integer, primary_key=True)
+    # 学校名
+    school_name = db.Column(db.String(255))
+    # 区域id
+    domain = db.Column(db.Integer)
+    # 省id
+    province = db.Column(db.Integer)
+    # 市id
+    city = db.Column(db.Integer)
+
+
+class Company_School(db.Model):
+    # 表名
+    __tablename__ = "company_school"
+    id = db.Column(db.Integer, primary_key=True)
+    # 企业id
+    company_id = db.Column(db.Integer)
+    # 学校id
+    school_id = db.Column(db.Integer)
+    # 企业登陆学校的用户名
+    username = db.Column(db.String(255))
+    # 企业登陆学校的用密码
+    password = db.Column(db.String(255))
+    # 企业发布状态（1：已注册，2：未注册，3：待审核，4：注册未通过审核）
+    rejister_status = db.Column(db.Integer)
+
+class Job_School(db.Model):
+    # 表名
+    __tablename__ = "job_school"
+    id = db.Column(db.Integer, primary_key=True)
+    # 企业id
+    job_id = db.Column(db.Integer)
+    # 学校id
+    school_id = db.Column(db.Integer)
+    # 企业发布状态（1：已发布，2：未发布，3：审核中，4：审核未通过）
+    Release_status = db.Column(db.Integer)
